@@ -16,7 +16,7 @@ function cachingDecorator(func, hash) {
       return cache.get(key)
     }
 
-    const result = func.call(this, ...arguments)
+    const result = func.apply(this, arguments)
     cache.set(key, result)
 
     return result
@@ -24,7 +24,7 @@ function cachingDecorator(func, hash) {
 }
 
 function hash(args) {
-  return args[0] + ' ' + args[1]
+  return [].join.call(args)
 }
 
 worker.slow = cachingDecorator(worker.slow, hash)
